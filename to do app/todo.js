@@ -8,8 +8,10 @@ const myInput = document.querySelector('.form-item')
 const addToBtn = document.querySelectorAll('.form-item')[1]
 const todoListSaxlayici = document.querySelector ('.vezife-siyahisi')
 addToBtn.addEventListener('click', addToDo)
+todoList.addEventListener('click', tamamlaSil)
 
 function addToDo(e){
+    
     e.preventDefault()
     const todoDiv = document.createElement('div')
     
@@ -30,7 +32,8 @@ function addToDo(e){
     tamamlaButonu.innerHTML= '<i class="fa fa-check" aria-hidden="true"></i>'
 
     const deleteBtn = document.createElement ('button')
-    deleteBtn.className = "vezife-btn vezife-btn-sil"
+    deleteBtn.classList.add = "vezife-btn"
+    deleteBtn.classList.add = "vezife-btn vezife-btn-sil"
     deleteBtn.innerHTML = '<i class= "fa-trash" aria-hidden="true"></i>'
 
     todoDiv.appendChild(todoLi)
@@ -40,4 +43,11 @@ function addToDo(e){
     todoListSaxlayici.appendChild(todoDiv)
 
     myInput.value = ''
+    
+}
+
+function tamamlaSil (e) {
+   const kliklediyimElement = e.target
+   if (kliklediyimElement.classList.contains("vezife-btn-tamamlandi")
+       kliklediyimElement.parentElement.classList.toggle('vezife-tamamlandi')
 }
