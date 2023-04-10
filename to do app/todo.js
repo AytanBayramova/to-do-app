@@ -1,53 +1,75 @@
-/* <div class="vezife-item">
-<li class="vezife tanitim">Developer</li>
-<button class="vezife-btn vezife-btn-tamamlandi">Check</button>
-<button class="vezife-btn vezife-btn-sil">Delete</button>
-</div> */
+// todolarin secilmesi
+const yeniVezife = document.querySelector('.input-vezife')
+const yeniVezifeElaveBtn = document.querySelector('.btn-vezife-elaveet')
 
-const myInput = document.querySelector('.form-item')
-const addToBtn = document.querySelectorAll('.form-item')[1]
-const todoListSaxlayici = document.querySelector ('.vezife-siyahisi')
-addToBtn.addEventListener('click', addToDo)
-todoList.addEventListener('click', tamamlaSil)
+// todolarin oldugu siyahini secmek
 
-function addToDo(e){
-    
-    e.preventDefault()
-    const todoDiv = document.createElement('div')
-    
-    todoDiv.classList.add('vezife-item')
-    console.log(todoDiv)
+const vezifeSiyahisi = document.querySelector('.vezife-siyahisi')
 
-    const todoLi = document.createElement('li')
-    console.log(todoLi)
-    todoLi.classList.add('vezife-tanitim')
-    todoLi.innerText = myInput.value 
-    console.log(todoLi)
 
-    
+// addEventListener
+yeniVezifeElaveBtn.addEventListener('click', vezifeElaveEt)
+vezifeSiyahisi.addEventListener('click', vezifeTamamlaSil)
 
-    const tamamlaButonu = document.createElement ('button')
-    tamamlaButonu.classList.add('vezife-btn')
-    tamamlaButonu.classList.add('vezife-btn-tamamlandi')
-    tamamlaButonu.innerHTML= '<i class="fa fa-check" aria-hidden="true"></i>'
 
-    const deleteBtn = document.createElement ('button')
-    deleteBtn.classList.add = "vezife-btn"
-    deleteBtn.classList.add = "vezife-btn vezife-btn-sil"
-    deleteBtn.innerHTML = '<i class= "fa-trash" aria-hidden="true"></i>'
+// event
 
-    todoDiv.appendChild(todoLi)
-    todoDiv.appendChild(tamamlaButonu)
-    todoDiv.appendChild(deleteBtn)
+function vezifeTamamlaSil(e) {
+    const kliklenenElement = e.target;
+   
+    //contains 
+    if(kliklenenElement.classList.contains('vezife-btn-tamamlandi')) {
+        // eger 
+        kliklenenElement.parentElement.classList.toggle('vezife-tamamlandi')
+    }
 
-    todoListSaxlayici.appendChild(todoDiv)
+    if(kliklenenElement.classList.contains('vezife-btn-sil')) {
+        kliklenenElement.parentElement.classList.toggle('reddol')
+    }
 
-    myInput.value = ''
-    
 }
+function vezifeElaveEt(e) {
+    e.preventDefault()
 
-function tamamlaSil (e) {
-   const kliklediyimElement = e.target
-   if (kliklediyimElement.classList.contains("vezife-btn-tamamlandi")
-       kliklediyimElement.parentElement.classList.toggle('vezife-tamamlandi')
+    // div yaradacam 
+
+    // <div class="vezife-item vezife-tamamlandi">
+    //         <li class="vezife-tanitim">Idmana get</li>
+    //         <button class="vezife-btn vezife-btn-tamamlandi" ><i class="fa fa-check" aria-hidden="true"></i></button>
+    //         <button class="vezife-btn vezife-btn-sil"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    //     </div>
+
+    const vezifeDiv = document.createElement('div');
+    vezifeDiv.classList.add('vezife-item')
+    // li yaradiriq
+
+    const vezifeLi = document.createElement('li')
+    vezifeLi.classList.add('vezife-tanitim')
+    vezifeLi.innerText = yeniVezife.value 
+    // appendChild(vezifeLi)
+    vezifeDiv.appendChild(vezifeLi)
+
+    // tamamlandi buttonu js DOM ile yaradacagiq
+    //<button class="vezife-btn vezife-btn-tamamlandi" ><i class="fa fa-check" aria-hidden="true"></i></button>
+    const vezifeTamamlandiBtn = document.createElement('button')
+    vezifeTamamlandiBtn.classList.add('vezife-btn')
+    vezifeTamamlandiBtn.classList.add('vezife-btn-tamamlandi')
+
+    // innerHTML vs Innertext
+    vezifeTamamlandiBtn.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>'
+    vezifeDiv.appendChild(vezifeTamamlandiBtn)
+
+    // silindi button js DOm ile yarat
+    //<button class="vezife-btn vezife-btn-sil"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    const vezifeSilBtn = document.createElement('button')
+    vezifeSilBtn.classList.add('vezife-btn')
+    vezifeSilBtn.classList.add('vezife-btn-sil')
+    vezifeSilBtn.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>'
+
+    vezifeDiv.appendChild(vezifeSilBtn)
+
+    yeniVezife.value = '';
+
+    vezifeSiyahisi.appendChild(vezifeDiv)
+
 }
